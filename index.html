@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SPMB SMK Budi Bakti Ciwidey — Penerimaan Murid Baru 2026/2027</title>
+  <meta name="description" content="Pendaftaran Seleksi Penerimaan Murid Baru SMK Budi Bakti Ciwidey Tahun Ajaran 2026/2027." />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: { extend: { fontFamily: { sans: ['"Plus Jakarta Sans"', '"Inter"', 'system-ui', 'sans-serif'] } } }
+    };
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    body { background: #f5f5f0; }
+    #mobile-menu { max-height: 0; overflow: hidden; transition: max-height 0.35s cubic-bezier(0.4,0,0.2,1); }
+    #mobile-menu.open { max-height: 320px; }
+    .section-divider { height: 8px; background: #e8e4dc; border-top: 1px solid #ddd9d0; border-bottom: 1px solid #ddd9d0; }
+    .ig-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; background: #e8e4dc; }
+    .ig-item { position: relative; overflow: hidden; cursor: pointer; background: #8a94a6; }
+    .ig-item::before { content: ''; display: block; padding-top: 100%; }
+    .ig-thumb { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; transition: opacity 0.25s; }
+    .ig-thumb img { width: 100%; height: 100%; object-fit: cover; }
+    .ig-overlay { position: absolute; inset: 0; background: rgba(15,32,68,0.55); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; opacity: 0; transition: opacity 0.25s; padding: 8px; }
+    .ig-item:hover .ig-overlay { opacity: 1; }
+    .ig-item:hover .ig-thumb { opacity: 0.75; }
+    .faq-content { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-in-out; }
+    .facility-slide { transition: opacity 0.4s, transform 0.4s; }
+
+    .logo-card {
+      width: 16rem;
+      height: 11rem;
+      background: #ffffff;
+      border-radius: 0.75rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.75rem;
+      box-shadow: 0 1px 6px rgba(0,0,0,0.08);
+      border: 1px solid #e8e4dc;
+    }
+    .logo-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    input:-webkit-autofill,
+    input:-webkit-autofill:hover,
+    input:-webkit-autofill:focus {
+      -webkit-box-shadow: 0 0 0px 1000px #1a2a4a inset !important;
+      -webkit-text-fill-color: white !important;
+      transition: background-color 5000s ease-in-out 0s;
+    }
+
+    /* ======= MODAL STYLES ======= */
+    #jurusan-modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+    #jurusan-modal.show {
+      display: flex;
+    }
+    #modal-backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.5);
+      backdrop-filter: blur(4px);
+    }
+    #modal-box {
+      position: relative;
+      background: #fff;
+      border-radius: 20px;
+      max-width: 520px;
+      width: 100%;
+      box-shadow: 0 24px 60px rgba(0,0,0,0.18);
+      overflow: hidden;
+      animation: modalIn 0.28s cubic-bezier(0.34,1.56,0.64,1);
+    }
+    @keyframes modalIn {
+      from { opacity: 0; transform: scale(0.92) translateY(20px); }
+      to   { opacity: 1; transform: scale(1) translateY(0); }
+    }
+    #modal-header {
+      padding: 28px 28px 20px;
+      border-bottom: 1px solid #f0ede8;
+    }
+    #modal-body {
+      padding: 20px 28px 28px;
+    }
+    #modal-tag {
+      display: inline-block;
+      padding: 3px 12px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    #modal-title {
+      font-size: 22px;
+      font-weight: 800;
+      color: #0f1e3c;
+      margin-bottom: 4px;
+    }
+    #modal-subtitle {
+      font-size: 13px;
+      color: #64748b;
+    }
+    #modal-desc {
+      font-size: 13.5px;
+      color: #475569;
+      line-height: 1.75;
+      margin-bottom: 18px;
+    }
+    #modal-skills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .skill-chip {
+      background: #f1f5f9;
+      color: #334155;
+      border-radius: 8px;
+      padding: 6px 12px;
+      font-size: 12px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .skill-chip .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    #modal-close {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: #f1f5f9;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+    }
+    #modal-close:hover { background: #e2e8f0; }
+  </style>
+</head>
+<body class="font-sans antialiased text-slate-700">
+
+  <!-- MODAL JURUSAN -->
+  <div id="jurusan-modal" role="dialog" aria-modal="true">
+    <div id="modal-backdrop" onclick="closeModal()"></div>
+    <div id="modal-box">
+      <button id="modal-close" onclick="closeModal()" aria-label="Tutup">
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+      <div id="modal-header">
+        <div id="modal-tag"></div>
+        <div id="modal-title"></div>
+        <div id="modal-subtitle"></div>
+      </div>
+      <div id="modal-body">
+        <p id="modal-desc"></p>
+        <div id="modal-skills"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- NAVBAR -->
+  <header class="fixed top-0 left-0 right-0 z-50 bg-white/30 border-b border-white/30 transition-all duration-300" id="navbar">
+    <div class="w-full px-6 h-16 flex items-center justify-between">
+      <a href="#" class="flex items-center gap-2.5 text-white font-bold tracking-wider text-sm md:text-base select-none">
+        <img src="assets/img/favicon.png" alt="SMK Budi Bakti Ciwidey" class="h-10 w-auto" />
+        <span>SMK BUDI BAKTI CIWIDEY</span>
+      </a>
+      <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-white/90">
+        <a href="#beranda" class="hover:text-white transition">Beranda</a>
+        <a href="#program-keahlian" class="hover:text-white transition">Program Keahlian</a>
+        <a href="#kontak" class="hover:text-white transition">Kontak</a>
+        <a href="https://s.id/spmbsmkbbc2026g2" target="_blank" class="bg-white/20 hover:bg-white hover:text-blue-600 text-white border border-white/40 px-5 py-2 rounded-lg transition shadow-sm text-sm font-semibold backdrop-blur-sm">Daftar</a>
+      </nav>
+      <button id="menu-toggle" class="md:hidden inline-flex items-center justify-center w-10 h-10 rounded-lg text-white hover:bg-white/20 transition" aria-label="Toggle navigation" aria-expanded="false">
+        <svg id="icon-open" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
+        <svg id="icon-close" class="w-5 h-5 hidden" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <div id="mobile-menu" class="md:hidden bg-white border-t border-slate-100">
+      <nav class="flex flex-col px-6 py-4 gap-3 text-sm font-medium text-slate-600">
+        <a href="#beranda" class="py-2 hover:text-blue-600 transition" onclick="closeMobileMenu()">Beranda</a>
+        <a href="#program-keahlian" class="py-2 hover:text-blue-600 transition" onclick="closeMobileMenu()">Program Keahlian</a>
+        <a href="/galeri" class="py-2 hover:text-blue-600 transition" onclick="closeMobileMenu()">Galeri Ekskul</a>
+        <a href="#kontak" class="py-2 hover:text-blue-600 transition" onclick="closeMobileMenu()">Kontak</a>
+        <a href="https://forms.gle/4h381xqv7cGSukP1A" target="_blank" class="mt-1 bg-blue-600 hover:bg-blue-700 text-white text-center px-5 py-2.5 rounded-lg transition shadow-sm font-semibold" onclick="closeMobileMenu()">Daftar</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HERO SECTION -->
+  <section id="beranda" class="relative pt-28 pb-20 lg:min-h-[85vh] flex items-center overflow-hidden">
+    <div class="absolute inset-0 z-0">
+      <img src="assets/img/fotosmk.jpg.jpeg" alt="SMK Budi Bakti Ciwidey" class="w-full h-full object-cover" />
+      <div class="absolute inset-0 bg-white/65"></div>
+    </div>
+    <div class="relative z-10 max-w-7xl mx-auto px-6 w-full">
+      <div class="max-w-2xl mx-auto text-center">
+        <span class="bg-blue-50 text-blue-700 px-3 py-1 rounded-full text-xs font-semibold inline-block mb-5 tracking-wide">
+          Sistem Penerimaan Murid Baru 2026/2027
+        </span>
+        <h1 class="text-4xl md:text-5xl lg:text-[3.25rem] font-extrabold leading-tight text-slate-900 mb-6">
+          Ayo Masuk<br/>
+          <span class="text-blue-600">SMK Budi Bakti Ciwidey</span>
+        </h1>
+        <p class="text-base md:text-lg text-slate-900 leading-relaxed mb-8 max-w-lg mx-auto">
+          Raih Masa Depan Digitalmu bersama Konsentrasi Keahlian Rekayasa Perangkat Lunak!
+          Kurikulum berbasis industri, siap kerja, dan berkarakter profesional.
+        </p>
+        <div class="flex justify-center">
+          <a href="https://forms.gle/4h381xqv7cGSukP1A" target="_blank" class="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-medium px-6 py-3 rounded-lg transition shadow-sm text-sm">
+            Daftar Sekarang
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+          </a>
+        </div>
+        <div class="mt-10 flex items-center justify-center gap-8 text-sm text-slate-900">
+          <div><span class="block text-2xl font-bold text-slate-900">3</span>Program Keahlian</div>
+          <div class="w-px h-10 bg-slate-400"></div>
+          <div><span class="block text-2xl font-bold text-slate-900">800+</span>Alumni</div>
+          <div class="w-px h-10 bg-slate-400"></div>
+          <div><span class="block text-2xl font-bold text-slate-900">98%</span>Terserap Industri</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- PROBLEM / SOLUTION SECTION -->
+  <section class="bg-[#faf9f6] py-16 px-6">
+    <div class="max-w-3xl mx-auto">
+      <div class="text-center mb-10">
+        <span class="text-red-500 font-semibold text-xs tracking-widest uppercase mb-3 inline-block">Masalah yang Sering Dihadapi</span>
+        <h2 class="text-2xl md:text-3xl font-extrabold text-slate-900 mb-8">Bingung Memilih SMK?</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-left">
+          <div class="bg-white border border-[#e8e4dc] rounded-xl p-5 flex gap-3 items-start shadow-sm">
+            <span class="text-red-400 mt-0.5 shrink-0">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z"/></svg>
+            </span>
+            <p class="text-sm text-slate-600 leading-relaxed">Kurikulum <strong class="text-slate-800">tidak relevan</strong> dengan dunia kerja modern</p>
+          </div>
+          <div class="bg-white border border-[#e8e4dc] rounded-xl p-5 flex gap-3 items-start shadow-sm">
+            <span class="text-red-400 mt-0.5 shrink-0">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z"/></svg>
+            </span>
+            <p class="text-sm text-slate-600 leading-relaxed">Khawatir biaya pendidikan <strong class="text-slate-800">terlalu mahal</strong></p>
+          </div>
+          <div class="bg-white border border-[#e8e4dc] rounded-xl p-5 flex gap-3 items-start shadow-sm">
+            <span class="text-red-400 mt-0.5 shrink-0">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z"/></svg>
+            </span>
+            <p class="text-sm text-slate-600 leading-relaxed">Takut lulusan <strong class="text-slate-800">tidak terserap</strong> industri kreatif &amp; digital</p>
+          </div>
+        </div>
+      </div>
+      <div class="flex justify-center mb-8">
+        <div class="flex flex-col items-center gap-1">
+          <svg class="w-6 h-6 text-blue-400" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+          <span class="text-xs font-semibold text-slate-400 tracking-widest uppercase">Solusinya</span>
+          <svg class="w-6 h-6 text-blue-400" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+        </div>
+      </div>
+      <div class="bg-blue-600 rounded-2xl p-8 text-center text-white shadow-lg">
+        <h3 class="text-xl md:text-2xl font-extrabold mb-3">Solusinya ke SMK BUDI BAKTI AJA!</h3>
+        <p class="text-blue-100 text-sm md:text-base leading-relaxed max-w-xl mx-auto">
+          Sekolah terakreditasi dengan fokus keahlian terkini di bidang teknologi kreatif dan digital — kurikulum industri, biaya terjangkau, dan 98% lulusan terserap kerja.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- PROGRAM KEAHLIAN -->
+  <section id="program-keahlian" class="bg-[#faf9f6] pt-12 pb-0">
+    <div class="max-w-4xl mx-auto px-6">
+      <div class="text-center mb-8">
+        <span class="text-blue-600 font-semibold text-sm tracking-wide uppercase">Pilihan Jurusan</span>
+        <h2 class="text-2xl md:text-3xl font-bold text-slate-900 mt-2">Pilihan Program Keahlian</h2>
+        <div class="mt-3 mx-auto w-10 h-1 rounded-full bg-blue-600"></div>
+      </div>
+    </div>
+    <div class="ig-grid">
+      <div class="ig-item" id="dept_pplg">
+        <div class="ig-thumb">
+          <img src="assets/img/rpl.jpeg" alt="PPLG" />
+        </div>
+        <div class="ig-overlay">
+          <svg class="w-6 h-6 text-white mb-1" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17.25 6.75L22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3l-4.5 16.5"/></svg>
+          <span class="text-white font-bold text-sm">PPLG</span>
+          <span class="text-blue-200 text-xs text-center">Perangkat Lunak &amp; Gim</span>
+        </div>
+      </div>
+      <div class="ig-item" id="dept_dkv">
+        <div class="ig-thumb">
+          <img src="assets/img/dkv.jpeg" alt="DKV" />
+        </div>
+        <div class="ig-overlay">
+          <svg class="w-6 h-6 text-white mb-1" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9.53 16.122a3 3 0 00-5.78 1.128 2.25 2.25 0 01-2.4 2.245 4.5 4.5 0 008.4-2.245c0-.399-.078-.78-.22-1.128zm0 0a15.998 15.998 0 003.388-1.62m-5.043-.025a15.994 15.994 0 011.622-3.395m3.42 3.42a15.995 15.995 0 004.764-4.648l3.876-5.814a1.151 1.151 0 00-1.597-1.597L14.146 6.32a15.996 15.996 0 00-4.649 4.763m3.42 3.42a6.776 6.776 0 00-3.42-3.42"/></svg>
+          <span class="text-white font-bold text-sm">DKV</span>
+          <span class="text-blue-200 text-xs text-center">Desain Komunikasi Visual</span>
+        </div>
+      </div>
+      <div class="ig-item" id="dept_brp">
+        <div class="ig-thumb">
+          <img src="assets/img/brp.jpeg" alt="BRP" style="object-position: top;" />
+        </div>
+        <div class="ig-overlay">
+          <svg class="w-6 h-6 text-white mb-1" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007z"/></svg>
+          <span class="text-white font-bold text-sm">BRP</span>
+          <span class="text-blue-200 text-xs text-center">Bisnis Ritel &amp; Pemasaran</span>
+        </div>
+      </div>
+    </div>
+    <div class="grid grid-cols-3 gap-0 bg-[#e8e4dc]" style="gap:2px;margin-top:2px">
+      <div class="bg-[#faf9f6] px-4 py-3">
+        <p class="text-xs font-bold text-slate-800 mb-0.5">PPLG</p>
+        <button onclick="openModal('pplg')" class="text-xs text-blue-600 font-medium hover:underline cursor-pointer bg-transparent border-none p-0">selengkapnya...</button>
+      </div>
+      <div class="bg-[#faf9f6] px-4 py-3 border-x" style="border-color:#e8e4dc">
+        <p class="text-xs font-bold text-slate-800 mb-0.5">DKV</p>
+        <button onclick="openModal('dkv')" class="text-xs text-blue-600 font-medium hover:underline cursor-pointer bg-transparent border-none p-0">selengkapnya...</button>
+      </div>
+      <div class="bg-[#faf9f6] px-4 py-3">
+        <p class="text-xs font-bold text-slate-800 mb-0.5">BRP</p>
+        <button onclick="openModal('brp')" class="text-xs text-blue-600 font-medium hover:underline cursor-pointer bg-transparent border-none p-0">selengkapnya...</button>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider mt-0"></div>
+
+  <!-- FASILITAS CAROUSEL -->
+  <section id="fasilitas" class="bg-[#faf9f6] py-16 border-b border-[#e8e4dc]">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="text-center mb-12">
+        <span class="text-blue-600 font-semibold text-sm tracking-wide uppercase">Sarana Pembelajaran</span>
+        <h2 class="text-3xl md:text-4xl font-bold text-slate-900 mt-2">Fasilitas Unggulan</h2>
+        <div class="mt-4 mx-auto w-12 h-1 rounded-full bg-blue-600"></div>
+        <p class="mt-4 text-slate-500 max-w-xl mx-auto text-sm md:text-base">Dukung kreativitas dan proses belajar mengajar dengan fasilitas modern berstandar industri.</p>
+      </div>
+      <div class="relative max-w-5xl mx-auto">
+        <div class="bg-white border border-[#e8e4dc] rounded-2xl p-8 md:p-12 relative overflow-hidden min-h-[380px] flex items-center shadow-sm">
+
+          <!-- SLIDE 1: PPLG -->
+          <div class="facility-slide w-full grid grid-cols-1 lg:grid-cols-2 gap-8 items-center opacity-100 translate-x-0" data-facility="0">
+            <div>
+              <span class="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-xs font-semibold inline-block mb-4">PPLG Facility</span>
+              <h3 class="text-2xl font-bold text-slate-900 mb-4">Laboratorium Komputer &amp; Software</h3>
+              <p class="text-slate-600 text-sm leading-relaxed mb-6">Dilengkapi dengan komputer spesifikasi tinggi (Core i7, RAM 16GB, SSD) untuk kenyamanan pengembangan perangkat lunak, pemrograman web, mobile application.</p>
+              <ul class="space-y-2 text-slate-600 text-sm font-medium">
+                <li class="flex items-center gap-2"><svg class="w-4 h-4 text-blue-600 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>Spesifikasi PC Standar Industri</li>
+                <li class="flex items-center gap-2"><svg class="w-4 h-4 text-blue-600 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>Koneksi Internet Fiber Optik 100 Mbps</li>
+                <li class="flex items-center gap-2"><svg class="w-4 h-4 text-blue-600 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>Lisensi Software Pemrograman Resmi</li>
+              </ul>
+            </div>
+            <div class="flex justify-center">
+              <div class="logo-card">
+                <img src="assets/img/logorpl.png" alt="Logo PPLG" />
+              </div>
+            </div>
+          </div>
+
+          <!-- SLIDE 2: DKV -->
+          <div class="facility-slide w-full grid grid-cols-1 lg:grid-cols-2 gap-8 items-center absolute inset-0 p-8 md:p-12 opacity-0 translate-x-8 pointer-events-none" data-facility="1">
+            <div>
+              <span class="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-xs font-semibold inline-block mb-4">DKV Facility</span>
+              <h3 class="text-2xl font-bold text-slate-900 mb-4">Studio Desain Komunikasi Visual</h3>
+              <p class="text-slate-600 text-sm leading-relaxed mb-6">Ruang industri kreatif yang didesain interaktif untuk pengerjaan gambar digital, fotografi produk, videografi, dan ilustrasi dengan drawing tablet profesional.</p>
+              <ul class="space-y-2 text-slate-600 text-sm font-medium">
+                <li class="flex items-center gap-2"><svg class="w-4 h-4 text-blue-600 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>Drawing Tablet &amp; Pen Display</li>
+                <li class="flex items-center gap-2"><svg class="w-4 h-4 text-blue-600 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>Pencahayaan Studio &amp; Green Screen</li>
+                <li class="flex items-center gap-2"><svg class="w-4 h-4 text-blue-600 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>Kamera DSLR &amp; Mirrorless Pro</li>
+              </ul>
+            </div>
+            <div class="flex justify-center">
+              <div class="logo-card">
+                <img src="assets/img/logodkv.png" alt="Logo DKV" />
+              </div>
+            </div>
+          </div>
+
+          <!-- SLIDE 3: BRP -->
+          <div class="facility-slide w-full grid grid-cols-1 lg:grid-cols-2 gap-8 items-center absolute inset-0 p-8 md:p-12 opacity-0 translate-x-8 pointer-events-none" data-facility="2">
+            <div>
+              <span class="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-xs font-semibold inline-block mb-4">BRP Facility</span>
+              <h3 class="text-2xl font-bold text-slate-900 mb-4">Business Center &amp; Mini Market</h3>
+              <p class="text-slate-600 text-sm leading-relaxed mb-6">Sarana praktik ritel modern berskala nyata. Siswa dilatih langsung dalam mengelola sistem kasir point of sale (POS), tata letak produk, dan manajemen inventaris stok.</p>
+              <ul class="space-y-2 text-slate-600 text-sm font-medium">
+                <li class="flex items-center gap-2"><svg class="w-4 h-4 text-blue-600 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>Sistem Kasir Pintar (POS System)</li>
+                <li class="flex items-center gap-2"><svg class="w-4 h-4 text-blue-600 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>Mockup Minimarket Terintegrasi</li>
+                <li class="flex items-center gap-2"><svg class="w-4 h-4 text-blue-600 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>Praktik Manajemen Stok Real-Time</li>
+              </ul>
+            </div>
+            <div class="flex justify-center">
+              <div class="logo-card">
+                <img src="assets/img/logobrp.png" alt="Logo BRP" />
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <div class="flex items-center justify-between mt-5">
+          <div class="flex gap-2" id="facility-dots">
+            <button class="w-2.5 h-2.5 rounded-full bg-blue-600" data-slide="0"></button>
+            <button class="w-2.5 h-2.5 rounded-full bg-[#d1cdc4]" data-slide="1"></button>
+            <button class="w-2.5 h-2.5 rounded-full bg-[#d1cdc4]" data-slide="2"></button>
+          </div>
+          <div class="flex gap-3">
+            <button id="facility-prev" class="w-10 h-10 border border-[#e8e4dc] hover:bg-[#f0ede8] bg-white rounded-lg flex items-center justify-center transition">
+              <svg class="w-5 h-5 text-slate-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5"/></svg>
+            </button>
+            <button id="facility-next" class="w-10 h-10 border border-[#e8e4dc] hover:bg-[#f0ede8] bg-white rounded-lg flex items-center justify-center transition">
+              <svg class="w-5 h-5 text-slate-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- SECTION DAFTAR -->
+  <section id="daftar" class="bg-[#1a2a4a] py-10">
+    <div class="max-w-4xl mx-auto px-6 flex flex-wrap items-center justify-between gap-8">
+      <div class="flex-1 min-w-[200px]">
+        <h2 class="text-2xl md:text-3xl font-extrabold text-yellow-400 leading-tight">
+          Kuota Pendaftaran<br/>Terbatas!
+        </h2>
+      </div>
+      <div class="flex-[2] min-w-[280px] flex flex-col gap-3">
+        <div class="flex items-center justify-between gap-4 flex-wrap mt-1">
+          <a href="https://s.id/spmbsmkbbc2026g2" target="_blank"
+            style="background:#facc15; color:#1a2a4a; font-weight:700; padding:10px 28px; border-radius:8px; font-size:14px; text-decoration:none; display:inline-block; transition:background 0.2s;">
+            Daftar Sekarang
+          </a>
+          <div class="flex flex-col items-end gap-2">
+            <div class="flex gap-2">
+              <a href="https://wa.me/6285285648525" target="_blank"
+                style="width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,0.12);display:flex;align-items:center;justify-content:center;">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+              </a>
+              <a href="https://instagram.com/info.smkbudibakticiwidey" target="_blank"
+                style="width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,0.12);display:flex;align-items:center;justify-content:center;">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+              </a>
+              <a href="https://tiktok.com/@smkbbc" target="_blank"
+                style="width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,0.12);display:flex;align-items:center;justify-content:center;">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
+              </a>
+            </div>
+            <span style="color:rgba(255,255,255,0.4); font-size:11px;">Hubungi media sosial kami</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer id="kontak" class="bg-slate-900 text-slate-400 py-10 px-6">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4 text-sm">
+      <p>&copy; 2026 SMK Budi Bakti Ciwidey. Hak Cipta Dilindungi.</p>
+      <p class="text-slate-500">Dikembangkan oleh Unit Produksi RPL</p>
+    </div>
+  </footer>
+
+  <script>
+    // ======= DATA JURUSAN =======
+    const jurusanData = {
+      pplg: {
+        tag: 'PPLG',
+        tagColor: '#1d4ed8',
+        tagBg: '#dbeafe',
+        title: 'Pengembangan Perangkat Lunak & Gim',
+        subtitle: 'Konsentrasi Keahlian Teknologi Digital',
+        desc: 'Di jurusan PPLG, siswa belajar dasar pemrograman, membuat website dan aplikasi, mengelola basis data, memahami analisis sistem, mengembangkan aplikasi mobile, mempelajari jaringan dasar, serta menggunakan alat pengembangan seperti Git. Lulusan siap berkarier sebagai programmer, web developer, mobile developer, hingga game developer.',
+        skills: [
+          'Dasar Pemrograman', 'Pembuatan Website', 'Aplikasi Mobile',
+          'Basis Data', 'Analisis Sistem', 'Jaringan Dasar',
+          'Git & Version Control', 'Pengembangan Gim'
+        ],
+        dotColor: '#2563eb'
+      },
+      dkv: {
+        tag: 'DKV',
+        tagColor: '#7c3aed',
+        tagBg: '#ede9fe',
+        title: 'Desain Komunikasi Visual',
+        subtitle: 'Konsentrasi Keahlian Industri Kreatif',
+        desc: 'Di jurusan DKV, siswa belajar membuat desain grafis, ilustrasi digital, tipografi, fotografi dan videografi, mengolah konten kreatif, membangun identitas visual, serta menggunakan berbagai software profesional untuk produksi desain dan media. Lulusan siap berkarier di industri kreatif, periklanan, media, dan konten digital.',
+        skills: [
+          'Desain Grafis', 'Ilustrasi Digital', 'Tipografi',
+          'Fotografi & Videografi', 'Konten Kreatif', 'Identitas Visual',
+          'Adobe Photoshop/Illustrator', 'Motion Graphics'
+        ],
+        dotColor: '#7c3aed'
+      },
+      brp: {
+        tag: 'BRP',
+        tagColor: '#047857',
+        tagBg: '#d1fae5',
+        title: 'Bisnis Ritel & Pemasaran',
+        subtitle: 'Konsentrasi Keahlian Bisnis & Perdagangan',
+        desc: 'Di jurusan BRP, siswa mempelajari pengelolaan toko, strategi pemasaran ritel, visual merchandising, manajemen persediaan, pelayanan pelanggan, promosi penjualan, serta pengelolaan bisnis melalui platform e-commerce. Lulusan siap berkarier di industri ritel modern, pemasaran digital, hingga membuka usaha sendiri.',
+        skills: [
+          'Pengelolaan Toko', 'Strategi Pemasaran Ritel', 'Visual Merchandising',
+          'Manajemen Persediaan', 'Pelayanan Pelanggan', 'Promosi Penjualan',
+          'E-Commerce', 'Bisnis Digital'
+        ],
+        dotColor: '#059669'
+      }
+    };
+
+    function openModal(key) {
+      const d = jurusanData[key];
+      document.getElementById('modal-tag').textContent = d.tag;
+      document.getElementById('modal-tag').style.background = d.tagBg;
+      document.getElementById('modal-tag').style.color = d.tagColor;
+      document.getElementById('modal-title').textContent = d.title;
+      document.getElementById('modal-subtitle').textContent = d.subtitle;
+      document.getElementById('modal-desc').textContent = d.desc;
+
+      const skillsEl = document.getElementById('modal-skills');
+      skillsEl.innerHTML = d.skills.map(s =>
+        `<span class="skill-chip"><span class="dot" style="background:${d.dotColor}"></span>${s}</span>`
+      ).join('');
+
+      document.getElementById('jurusan-modal').classList.add('show');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      document.getElementById('jurusan-modal').classList.remove('show');
+      document.body.style.overflow = '';
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeModal();
+    });
+
+    // ======= NAVBAR =======
+    const menuToggle = document.getElementById('menu-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const iconOpen = document.getElementById('icon-open');
+    const iconClose = document.getElementById('icon-close');
+    const navbar = document.getElementById('navbar');
+
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 60) {
+        navbar.classList.remove('bg-transparent', 'border-white/20');
+        navbar.classList.add('bg-white/95', 'backdrop-blur-sm', 'border-slate-100');
+        navbar.querySelectorAll('a:not([href="#daftar"])').forEach(a => {
+          a.classList.remove('text-white', 'text-white/90', 'hover:text-white');
+          a.classList.add('text-slate-600', 'hover:text-blue-600');
+        });
+        navbar.querySelector('a[href="#daftar"]').className = 'bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-lg transition shadow-sm text-sm font-semibold';
+        navbar.querySelector('.flex.items-center.gap-2\\.5').classList.replace('text-white', 'text-slate-900');
+        navbar.querySelector('button#menu-toggle').classList.replace('text-white', 'text-slate-700');
+        navbar.querySelector('button#menu-toggle').classList.replace('hover:bg-white/20', 'hover:bg-slate-100');
+      } else {
+        navbar.classList.add('bg-white/30', 'border-white/30');
+        navbar.classList.remove('bg-white/95', 'backdrop-blur-sm', 'border-slate-100');
+      }
+    });
+
+    function closeMobileMenu() {
+      mobileMenu.classList.remove('open');
+      iconOpen.classList.remove('hidden');
+      iconClose.classList.add('hidden');
+      menuToggle.setAttribute('aria-expanded', 'false');
+    }
+    menuToggle.addEventListener('click', () => {
+      const isOpen = mobileMenu.classList.toggle('open');
+      iconOpen.classList.toggle('hidden', isOpen);
+      iconClose.classList.toggle('hidden', !isOpen);
+      menuToggle.setAttribute('aria-expanded', isOpen);
+    });
+
+    // ======= FASILITAS CAROUSEL =======
+    const facilitySlides = document.querySelectorAll('.facility-slide');
+    const facilityDots = document.querySelectorAll('#facility-dots button');
+    let currentSlide = 0;
+    function showFacilitySlide(index) {
+      facilitySlides.forEach((slide, idx) => {
+        if (idx === index) {
+          slide.classList.remove('absolute','inset-0','p-8','md:p-12','pointer-events-none','opacity-0','translate-x-8');
+          slide.classList.add('relative','opacity-100','translate-x-0');
+        } else {
+          slide.classList.add('absolute','inset-0','p-8','md:p-12','pointer-events-none','opacity-0','translate-x-8');
+          slide.classList.remove('relative','opacity-100','translate-x-0');
+        }
+      });
+      facilityDots.forEach((dot, idx) => {
+        dot.className = idx === index ? 'w-2.5 h-2.5 rounded-full bg-blue-600' : 'w-2.5 h-2.5 rounded-full bg-[#d1cdc4]';
+      });
+      currentSlide = index;
+    }
+    document.getElementById('facility-prev').addEventListener('click', () => {
+      showFacilitySlide(currentSlide - 1 < 0 ? facilitySlides.length - 1 : currentSlide - 1);
+    });
+    document.getElementById('facility-next').addEventListener('click', () => {
+      showFacilitySlide(currentSlide + 1 >= facilitySlides.length ? 0 : currentSlide + 1);
+    });
+    facilityDots.forEach((dot, idx) => dot.addEventListener('click', () => showFacilitySlide(idx)));
+  </script>
+</body>
+</html>
