@@ -160,6 +160,40 @@
       transition: background 0.2s;
     }
     #modal-close:hover { background: #e2e8f0; }
+
+    /* ======= MAPS BUTTON ======= */
+    .maps-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.25);
+      color: #fff;
+      font-weight: 600;
+      font-size: 13px;
+      padding: 10px 20px;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: background 0.2s, border-color 0.2s;
+      backdrop-filter: blur(4px);
+    }
+    .maps-btn:hover {
+      background: rgba(255,255,255,0.22);
+      border-color: rgba(255,255,255,0.45);
+    }
+    .maps-btn svg { flex-shrink: 0; }
+
+    /* ======= FOOTER MAPS CARD ======= */
+    .footer-maps-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: #94a3b8;
+      font-size: 13px;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-maps-link:hover { color: #38bdf8; }
   </style>
 </head>
 <body class="font-sans antialiased text-slate-700">
@@ -223,12 +257,11 @@
           Sistem Penerimaan Murid Baru 2026/2027
         </span>
         <h1 class="text-4xl md:text-5xl lg:text-[3.25rem] font-extrabold leading-tight text-slate-900 mb-6">
-          Ayo Masuk<br/>
+          Kuasai Industri Digital Bersama<br/>
           <span class="text-blue-600">SMK Budi Bakti Ciwidey</span>
         </h1>
         <p class="text-base md:text-lg text-slate-900 leading-relaxed mb-8 max-w-lg mx-auto">
-          Raih Masa Depan Digitalmu bersama Konsentrasi Keahlian Rekayasa Perangkat Lunak!
-          Kurikulum berbasis industri, siap kerja, dan berkarakter profesional.
+          Dapatkan pendidikan berbasis keahlian praktis di bidang PPLG, DKV, dan BRP dengan kurikulum modern yang siap mengantar kamu langsung ke dunia kerja atau wirausaha.
         </p>
         <div class="flex justify-center">
           <a href="https://s.id/spmbsmkbbc2026g2" target="_blank" class="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-medium px-6 py-3 rounded-lg transition shadow-sm text-sm">
@@ -454,10 +487,23 @@
       </div>
       <div class="flex-[2] min-w-[280px] flex flex-col gap-3">
         <div class="flex items-center justify-between gap-4 flex-wrap mt-1">
-          <a href="https://s.id/spmbsmkbbc2026g2" target="_blank"
-            style="background:#facc15; color:#1a2a4a; font-weight:700; padding:10px 28px; border-radius:8px; font-size:14px; text-decoration:none; display:inline-block; transition:background 0.2s;">
-            Daftar Sekarang
-          </a>
+
+          <!-- TOMBOL DAFTAR + MAPS -->
+          <div class="flex flex-wrap gap-3 items-center">
+            <a href="https://s.id/spmbsmkbbc2026g2" target="_blank"
+              style="background:#facc15; color:#1a2a4a; font-weight:700; padding:10px 28px; border-radius:8px; font-size:14px; text-decoration:none; display:inline-block; transition:background 0.2s;">
+              Daftar Sekarang
+            </a>
+            <!-- TOMBOL GOOGLE MAPS -->
+            <a href="https://maps.app.goo.gl/VhZpyw3w6wbKvCv7A" target="_blank" class="maps-btn">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                <circle cx="12" cy="10" r="3"/>
+              </svg>
+              Lihat Lokasi
+            </a>
+          </div>
+
           <div class="flex flex-col items-end gap-2">
             <div class="flex gap-2">
               <a href="https://wa.me/6285285648525" target="_blank"
@@ -483,8 +529,18 @@
   <!-- FOOTER -->
   <footer id="kontak" class="bg-slate-900 text-slate-400 py-10 px-6">
     <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4 text-sm">
-      <p>&copy; 2026 Redline Team. Hak Cipta Dilindungi.</p>
-      <p class="text-slate-500">Dikembangkan oleh Unit Produksi RPL</p>
+      <p>&copy; 2026 SMK Budi Bakti. Hak Cipta Dilindungi.</p>
+
+      <!-- ALAMAT + LINK MAPS DI FOOTER -->
+      <a href="https://maps.app.goo.gl/VhZpyw3w6wbKvCv7A" target="_blank" class="footer-maps-link">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+          <circle cx="12" cy="10" r="3"/>
+        </svg>
+        SMK Budi Bakti Ciwidey — Lihat di Google Maps
+      </a>
+
+      <p class="text-slate-500">Dikembangkan oleh Redline Team</p>
     </div>
   </footer>
 
